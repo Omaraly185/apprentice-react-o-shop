@@ -1,10 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import './App.scss';
+import Main from './components/Main/Main';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     <div className="App">
-      <h1>Hello React App!</h1> 
+      <Main />
     </div>
   );
 }
