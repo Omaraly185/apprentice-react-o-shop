@@ -13,12 +13,13 @@ function RegisterForm() {
 
   const { firstname, lastname, username, password } = inputs;
 
-  const onSubmit = () => {
-    setSubmitted(Event.target.value);
+  const onSubmit = (event) => {
+    event.preventDefault()
+    setSubmitted(true);
     console.log('submit');
   };
   const onChange = (event) => {
-    const { name } = event.target;
+    const { name, value } = event.target;
     setInputs((inputs) => ({ ...inputs, [name]: event.target.value }));
   };
 
