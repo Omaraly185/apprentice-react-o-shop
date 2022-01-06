@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { loginAction} from '../../store/login/action';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 function LoginForm() {
@@ -9,18 +11,25 @@ function LoginForm() {
   const { submitted, setSubmitted } = useState(false);
 
   const { username, password } = inputs;
+  const dispatch=useDispatch();
+  useEffect (()=> {
+    dispatch(loginAction.logout());
+  }, [dispatch]);
 
-  const onSubmit = () => {
-    setSubmitted(true);
-    console.log('submit');
-  };
-  const onChange = (event) => {
+  function onChange(event) {
     const { name, value } = event.target;
     setInputs((inputs) => ({ ...inputs, [name]: value }));
-  };
-
+  }
+  function onSubmit(event) {
+    event.preventDefault()
+    setSubmitted(true);
+    if (username && password) {
+      dispatch(loginAction.login(username,password));
+    }
+  }
+  
   return (
-    <div className="col-lg-10 offset-lg-10">
+    <div className="col-lg-4 offset-lg-4">
       <h2>Login</h2>
       <form name="form" onSubmit={onSubmit}>
         <div className="form-group">
