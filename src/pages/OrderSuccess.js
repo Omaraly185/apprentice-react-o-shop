@@ -1,7 +1,14 @@
 import React from 'react';
+import Header from '../components/Header/Header';
 
 function OrderSuccess() {
-  return <h1>OrderSuccess Works!</h1>;
+  
+  return(
+    <div>
+      <Header/>;
+      <h1>OrderSuccess Works!</h1>
+    </div>
+  ); 
 }
 
 export default OrderSuccess;

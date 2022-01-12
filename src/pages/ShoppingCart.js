@@ -1,7 +1,13 @@
 import React from 'react';
+import Header from '../components/Header/Header';
 
 function ShoppingCart() {
-  return <h1>Shopping Cart Works!</h1>;
+  return(
+    <div>
+      <Header/>
+      <h1>ShoppingCart Works!</h1>
+    </div>
+  ); 
 }
 
 export default ShoppingCart;
