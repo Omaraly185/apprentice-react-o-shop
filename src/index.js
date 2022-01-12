@@ -6,15 +6,17 @@ import { BrowserRouter } from 'react-router-dom';
 import { history } from './utils/history';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import reportWebVitals from './reportWebVitals';
-import store from './store/store'
+import store from './store/store';
 
-// configureFakeBackend ();
+import { configureFakeBackend } from './utils/fakeBackend';
+
+configureFakeBackend ();
 ReactDom.render(
-  <BrowserRouter navigator={history}>
-  <App />
-</BrowserRouter>,
-// </Provider>,
-
+  <Provider store={store}>
+    <BrowserRouter history={history}>
+      <App />
+    </BrowserRouter>
+  </Provider>,
   document.getElementById('root')
 );
 
