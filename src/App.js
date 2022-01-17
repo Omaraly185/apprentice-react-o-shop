@@ -8,6 +8,9 @@ import ShoppingCart from './pages/ShoppingCart';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import PrivateRoute from './components/Shared/PrivateRoute';
+import AdminProducts from './pages/AdminProducts';
+import NewProducts from './pages/NewProducts';
+
 
 function App() {
   return (
@@ -19,6 +22,8 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route exact path="/products" element={<Products />} />
           <Route exact path="/shopping-cart" element={<ShoppingCart />} />
+          <Route exact path="/admin-products" element={<AdminProducts />} />
+          <Route exact path="/new-products" element={<NewProducts/>} />
         </Route>
       </Routes>
     </div>

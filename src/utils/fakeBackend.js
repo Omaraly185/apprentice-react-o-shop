@@ -1,6 +1,7 @@
 // array in local storage for registered users
-localStorage.setItem("users", JSON.stringify([{firstName:'ahmed',lastName:'aly',username:'ahmed.aly',password:'umbrage',id:'1'}]));
+localStorage.setItem("users", JSON.stringify([{firstName:'Ahmed',lastName:'Aly',username:'ahmed.aly',password:'umbrage',id:'1'}]));
 let users = JSON.parse(localStorage.getItem("users")) || [];
+let products=JSON.parse(localStorage.getItem("products")) || [];
 
 export function configureFakeBackend() {
   let realFetch = window.fetch;
@@ -15,6 +16,8 @@ export function configureFakeBackend() {
 
       function handleRoute() {
         switch (true) {
+          case url.endsWith('/products/add') && method === 'POST':
+            return addProduct();  
           case url.endsWith('/users/authenticate') && method === 'POST':
             return authenticate();
           case url.endsWith('/users/register') && method === 'POST':
@@ -32,8 +35,20 @@ export function configureFakeBackend() {
       }
 
       // route functions
+      function addProduct() {
+        const product = body;
 
-      function authenticate() {
+        product.id = products.length
+          ? Math.max(...products.map((x)=> x.id)) + 1
+          :1;
+        products.push(product);
+        localStorage.setItem('products', JSON.stringify(products));
+
+        return ok();
+      }
+
+
+      function authenticate() { 
         const { username, password } = body;
         const user = users.find(
           (x) => x.username === username && x.password === password
