@@ -1,5 +1,4 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
 import actionTypes from './actionTypes';
 import { userService } from '../../service/userService';
 import { history } from '../../utils/history';
@@ -16,7 +15,6 @@ function login(username, password) {
     userService.login(username, password).then(
       (user) => {
         dispatch({type: actionTypes.LOGIN_SUCCESS,user});
-        
         history.push('/');
 
       },

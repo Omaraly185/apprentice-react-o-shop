@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginActions } from '../../store/login/action';
 import {registerActions} from '../../store/register/action'
 import { Link } from 'react-router-dom';
@@ -12,6 +12,7 @@ function RgisterForm() {
     password: '',
   });
   const [submitted, setSubmitted] = useState(false);
+  const registering = useSelector((state) => state.register.registering);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -102,6 +103,9 @@ function RgisterForm() {
         </div>
         <div className="form-group">
           <button className="btn btn-primary">
+          {registering && (
+              <span className="spinner-border spinner-border-sm mr-1"></span>
+            )}
             Register
           </button>
           <Link to="/login" className="btn btn-link">

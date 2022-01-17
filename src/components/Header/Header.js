@@ -3,8 +3,13 @@ import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Nav, NavDropdown, Form, Container } from 'react-bootstrap';
 import './Header.scss';
+import { useSelector } from 'react-redux';
+
 
 function Header() {
+  const fullName = useSelector(
+    (state)=> state.login.user.firstName+ ' '+state.login.user.lastName
+  );
   return (
     <div className="Header">
       <div>
@@ -21,9 +26,6 @@ function Header() {
                 <Nav.Link as={Link} to={'/'}>
                   Home
                 </Nav.Link>
-                <Nav.Link as={Link} to={'/products'}>
-                  Products
-                </Nav.Link>
                 <Nav.Link as={Link} to={'/shopping-cart'}>
                   Shopping Cart
                 </Nav.Link>
@@ -33,14 +35,14 @@ function Header() {
                 <Nav.Link as={Link} to={'/register'}>
                   Register
                 </Nav.Link>
-                <NavDropdown title="Link" id="navbarScrollingDropdown">
-                  <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                  <NavDropdown.Item href="#action4">
+                <NavDropdown title={fullName} id="navbarScrollingDropdown">
+                  <NavDropdown.Item href="/admin-products">Admin Products</NavDropdown.Item>
+                  <NavDropdown.Item href="/admin">
                     Another action
                   </NavDropdown.Item>
                   <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action5">
-                    Something else here
+                  <NavDropdown.Item href="/login">
+                    Logout
                   </NavDropdown.Item>
                 </NavDropdown>
                 <Nav.Link href="#" disabled>
