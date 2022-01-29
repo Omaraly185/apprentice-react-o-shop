@@ -1,13 +1,35 @@
 // array in local storage for registered users
 localStorage.setItem("users", JSON.stringify([{firstName:'Ahmed',lastName:'Aly',username:'ahmed.aly',password:'umbrage',id:'1'}]));
 let users = JSON.parse(localStorage.getItem("users")) || [];
-let products=JSON.parse(localStorage.getItem("products")) || [];
+let products=JSON.parse(localStorage.getItem("products")) || [{
+  title:'Apple',
+  price: '1.00',
+  category : 'Fruits',
+  id:1,
+  key:'apple'
+},
+{
+  title:'Celery',
+  price: '2.00',
+  category : 'Vegetable',
+  id:2,
+  key:'celery',
+},
+{
+  title:'Mango',
+  price: '4.00',
+  category : 'Fruits',
+  id : 3,
+  key:'mango'
+
+},];
 
 export function configureFakeBackend() {
   let realFetch = window.fetch;
 
   window.fetch = function (url, opts) {
     const { method, headers } = opts;
+    console.log(opts);
     const body = opts.body && JSON.parse(opts.body);
 
     return new Promise((resolve, reject) => {
@@ -16,8 +38,12 @@ export function configureFakeBackend() {
 
       function handleRoute() {
         switch (true) {
+          case url.endsWith('/products/edit') && method === 'POST': 
+            return editProduct();
           case url.endsWith('/products/add') && method === 'POST':
-            return addProduct();  
+            return addProduct();
+          case url.endsWith('products') && method === 'GET':
+            return getProduct();
           case url.endsWith('/users/authenticate') && method === 'POST':
             return authenticate();
           case url.endsWith('/users/register') && method === 'POST':
@@ -45,6 +71,24 @@ export function configureFakeBackend() {
         localStorage.setItem('products', JSON.stringify(products));
 
         return ok();
+      }
+
+       // route functions
+       function editProduct() {
+        const {product, productPosition}  = body;
+
+        product.id = productPosition;
+
+        products[productPosition] = product;
+        localStorage.setItem('products', JSON.stringify(products));
+
+        return ok();
+      }
+     
+      function getProduct() {
+        const products = JSON.parse(localStorage.getItem('products'));
+
+        return ok(products);
       }
 
 
