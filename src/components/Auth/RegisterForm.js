@@ -4,7 +4,7 @@ import { loginActions } from '../../store/login/action';
 import {registerActions} from '../../store/register/action'
 import { Link } from 'react-router-dom';
 
-function RgisterForm() {
+function RegisterForm() {
   const [user, setUser] = useState({
     firstName: '',
     lastName: '',
@@ -117,4 +117,4 @@ function RgisterForm() {
   );
 }
 
-export default RgisterForm;
+export default RegisterForm;

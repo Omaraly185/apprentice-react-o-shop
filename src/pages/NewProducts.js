@@ -72,7 +72,7 @@ const dispatch = useDispatch();
             }
           />
           <br></br>
-          {save && !product.price && (
+          {save && product.price === isNaN && (
             <div className="invalid-feedback">required</div>
           )}
         </div>
